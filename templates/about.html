@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block _content %}
+<!-- <h3>Selamat! anda {% for mhs in listMahasiswa %} {% if mhs.nilai > 75 %} <b>Lulus</b>{% else %} <b>Tidak Lulus</b> Nilai anda {{ session.pengguna.nilai }} {% endif %} {% endfor %}</h3> -->
+<h3>{% if mhs.nilai > 75 %} <b class="text-success">Selamat!</b> {% else %} <b class="text-danger">Maaf,</b> {% endif %} {{ mhs.nama }} anda {% if mhs.nilai > 75 %} <b class="text-success">Lulus</b> {% else %} <b class="text-danger">Tidak Lulus</b> {% endif %} Nilai anda {{ mhs.nilai }}</h3>
+{% endblock %}

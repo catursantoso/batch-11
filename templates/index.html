@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block _content %}
+<div class="row justify-content-center">
+  <div class="col-8">
+    <h1>Daftar Mahasiswa</h1>
+    <div class="row">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr class="text-uppercase">
+              <th scope="col" class="text-center">No</th>
+              <th scope="col" class="text-center">Nama</th>
+              <th scope="col" class="text-center">Nilai</th>
+              <th scope="col" class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for mhs in listMahasiswa %}
+            <tr {% if session.pengguna.nama == mhs.nama %} class="bg-warning" {% endif %}>
+              <th class="text-center">{{ loop.index }}</th>
+              <td class="ps-4">
+                <i class="bi bi-person"></i>
+                {{ mhs.nama }}</td>
+              <td class="text-center">{{ mhs.nilai }}</td>
+              <td class="text-center">
+                {% if mhs.nilai > 75 %}
+                <b class="text-success">
+                  Lulus
+                </b>
+                {% else %}
+                <b class="text-danger">
+                  Tidak Lulus
+                </b>
+                {% endif %}
+              </td>
+              <td class="text-center">
+                <button class="btn btn-primary" onclick=showModal('{{ mhs.id }}')>Detail</button>
+                <a href="/hapus/{{ mhs.id }}" class="btn btn-danger"><i class="bi bi-trash-fill"></i>Hapus</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="resp"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+  function showModal(uid) {
+    $.ajax('/api/' + uid, {
+      success: function(data) {
+        $('#resp').text(data);
+      }
+    })
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    myModal.show();
+  }
+</script>
+{% endblock %}

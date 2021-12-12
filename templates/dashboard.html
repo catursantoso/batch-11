@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block _content %}
+    <h3>Hai, {{ session.pengguna.nama }}</h3>
+    <h4>{{ session.user_id }}</h4>
+    <h4>{{ session.pengguna.nilai }}</h4>
+
+    <form action="/dashboard" method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" value="{{ session.pengguna.nama }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="nilai" class="form-label">Nilai</label>
+          <input type="number" class="form-control" id="nilai" name="nilai" value="{{ session.pengguna.nilai }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="deskripsi" class="form-label">Deskripsi</label>
+          <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ session.pengguna.deskripsi }}" required>
+        </div>
+        <button type="submit" class="btn btn-info fw-bold"><i class="bi bi-pencil pe-2"></i>Update</button>
+      </form>
+{% endblock %}

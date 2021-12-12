@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block _content %}
+<style>
+  body{
+    background-color: darkcyan;
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8 bg-light p-5 rounded-3">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center">Register</h1>
+          {% if pesan != '' %}
+          <div class="alert alert-{{status}}" role="alert">
+            {{ pesan }}
+          </div>
+          {% endif %}
+          <form action="/register" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+              <label for="nilai" class="form-label">Nilai</label>
+              <input type="number" class="form-control" id="nilai" name="nilai" required>
+            </div>
+            <div class="mb-3">
+              <label for="deskripsi" class="form-label">Deskripsi</label>
+              <input type="text" class="form-control" id="deskripsi" name="deskripsi" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-info fw-bold">Register</button><span> Already have an account..? <a href="/login" class="text-decoration-none">Login</a></span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
