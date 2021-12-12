@@ -56,6 +56,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div class="spinner-border text-info" role="status" id="loading">
+          <span class="visually-hidden">Loading...</span>
+        </div>
         <div id="resp"></div>
       </div>
       <div class="modal-footer">
@@ -70,9 +73,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
   function showModal(uid) {
+    $('#loading').removeClass('d-none');
+    $('#resp').addClass('d-none');
     $.ajax('/api/' + uid, {
       success: function(data) {
+        $('#resp').removeClass('d-none');
         $('#resp').text(data);
+        $('#loading').addClass('d-none');
       }
     })
     var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
